@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static maxlich.game.utils.Helper.printMsg;
@@ -18,33 +19,14 @@ public class MainMenu { //меню игры
         this.menuList = new ArrayList<>();
     }
 
-    public MainMenu(String... menuItem) {
-        this.menuList = new ArrayList<>();
-        for (String str : menuItem) {
-            MainMenuItem[] items = MainMenuItem.values();
-            MainMenuItem menuItem1 = null;
-            for (MainMenuItem item : items)
-                if (item.getName().equalsIgnoreCase(str)) {
-                    menuItem1 = item;
-                    break;
-                }
+    public MainMenu(MainMenuItem... menuItem) {
+        this.menuList = new ArrayList<>(Arrays.asList(menuItem));
 
-            menuList.add(menuItem1);
-        }
+
     }
 
-    public void addMenuItems(String... menuItem) {
-        for (String str : menuItem) {
-            MainMenuItem[] items = MainMenuItem.values();
-            MainMenuItem menuItem1 = null;
-            for (MainMenuItem item : items)
-                if (item.getName().equalsIgnoreCase(str)) {
-                    menuItem1 = item;
-                    break;
-                }
-
-            menuList.add(menuItem1);
-        }
+    public void addMenuItems(MainMenuItem... menuItem) {
+        menuList.addAll(Arrays.asList(menuItem));
     }
 
     public void printMenu() {
@@ -76,7 +58,7 @@ public class MainMenu { //меню игры
 
     public enum MainMenuItem {
         START_GAME("Начать игру"),
-        CHOOSE_DIFFICULTY_LEVEL_OF_GAME("Выбрать уровень сложности игры"),
+        CHOOSE_DIFFICULTY_OF_GAME("Выбрать уровень сложности игры"),
         PRINT_RULES("Показать правила игры"),
         PRINT_TOPLIST("Топ-лист игроков"),
         EXIT("Выход");

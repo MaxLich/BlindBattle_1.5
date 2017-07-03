@@ -18,7 +18,7 @@ import static maxlich.game.activeobjects.ActiveObject.Action;
 import static maxlich.game.menu.MainMenu.MainMenuItem;
 
 public class Main {
-    public static final int SIZE_ARENA = 6;
+    private static final int SIZE_ARENA = 6;
     private Arena arena;
     private MainMenu menu;
     private Player player;
@@ -46,7 +46,8 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        MainMenu newMenu = new MainMenu("Начать игру", "Выбрать уровень сложности игры", "Показать правила игры", "Топ-лист игроков", "Выход");
+        MainMenu newMenu = new MainMenu(MainMenuItem.START_GAME, MainMenuItem.CHOOSE_DIFFICULTY_OF_GAME,
+                MainMenuItem.PRINT_RULES, MainMenuItem.PRINT_TOPLIST, MainMenuItem.EXIT);
         Arena arena = new Arena(SIZE_ARENA);
         TopList topList = new TopList();
         game = new Main(newMenu, new Player(arena), arena, DifficultyGame.EASY, new Score(),topList);
@@ -62,7 +63,7 @@ public class Main {
             if (mainMenuItem == MainMenuItem.EXIT)
                 System.exit(0);
 
-            if (mainMenuItem == MainMenuItem.CHOOSE_DIFFICULTY_LEVEL_OF_GAME) {
+            if (mainMenuItem == MainMenuItem.CHOOSE_DIFFICULTY_OF_GAME) {
                 difficultyGame = new MenuDifficultyGame().getUserInput();
                 printMsg("Установлен новый уровень сложности: " + difficultyGame.getName() + "\n");
             }
@@ -81,6 +82,7 @@ public class Main {
                 for (int diffIndex = difficultyGame.ordinal(); diffIndex < DifficultyGame.values().length; diffIndex++) {
                     if (goToMainMenu) break;
                     difficultyGame = DifficultyGame.values()[diffIndex];
+
                     for (int iLevel = 1; iLevel <= 10; iLevel++) { //цикл уровня игры
                         printMsg("Сложность игры: " + difficultyGame.getName() + ", Уровень: " + iLevel);
 
@@ -252,8 +254,8 @@ public class Main {
             case NORMAL:
                 enemyIqLevel = 2;
                 break;
-            case HARD:
-                enemyIqLevel = 3;
+/*            case HARD:
+                enemyIqLevel = 3;*/
         }
         return FactoryEnemy.getNewEnemy(enemyIqLevel,name,healthpoints,minDamage,maxDamage,arena);
     }
@@ -297,8 +299,8 @@ public class Main {
 
     public enum DifficultyGame {
         EASY("Легко"),
-        NORMAL("Нормально"),
-        HARD("Сложно");
+        NORMAL("Нормально");/*,
+        HARD("Сложно");*/
 
         private String name;
 
