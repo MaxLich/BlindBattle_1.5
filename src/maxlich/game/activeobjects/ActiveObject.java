@@ -2,6 +2,7 @@ package maxlich.game.activeobjects;
 
 import maxlich.game.Arena;
 
+import static maxlich.game.utils.Helper.getRandomInt;
 import static maxlich.game.utils.Helper.printMsg;
 
 /**
@@ -103,7 +104,7 @@ public abstract class ActiveObject implements Movable, Attackable {
 
     protected int damage(ActiveObject otherObject) {
         int deltaDamage = this.dmg.max - this.dmg.min;
-        this.dmg.current = (int) (Math.random() * ++deltaDamage) + this.dmg.min;
+        this.dmg.current = getRandomInt(++deltaDamage) + this.dmg.min;
 
         otherObject.healthPoints.current -= this.dmg.current;
         return this.dmg.current;

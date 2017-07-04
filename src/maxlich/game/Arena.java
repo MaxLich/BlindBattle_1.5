@@ -1,5 +1,7 @@
 package maxlich.game;
 
+import maxlich.game.utils.Helper;
+
 /**
  * Created by Максим on 22.06.2017.
  */
@@ -19,7 +21,7 @@ public class Arena {
     }
 
     public int getRandomLocation() {
-        return (int)(Math.random() * size) + 1;
+        return Helper.getRandomInt(size) + 1;
     }
 
 }

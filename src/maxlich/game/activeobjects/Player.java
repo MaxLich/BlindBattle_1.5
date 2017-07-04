@@ -59,6 +59,7 @@ public class Player extends ActiveObject {
             String userInput = "";
             while (!isCorrectInput) {
                 userInput = reader.readLine();
+                if (userInput == null) continue;
                 if (userInput.equals("+") || userInput.equals("-"))
                     isCorrectInput = true;
             }

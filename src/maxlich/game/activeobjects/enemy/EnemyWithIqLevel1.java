@@ -3,6 +3,7 @@ package maxlich.game.activeobjects.enemy;
 import maxlich.game.Arena;
 import maxlich.game.activeobjects.ActiveObject;
 
+import static maxlich.game.utils.Helper.getRandomInt;
 import static maxlich.game.utils.Helper.printMsg;
 
 /**
@@ -71,6 +72,6 @@ public class EnemyWithIqLevel1 extends Enemy {
         if (lastPlayerLocation >= 1 && numOfMisses == 0)
             return lastPlayerLocation;
         else
-            return (int)(Math.random() * arena.getSize()) + 1;
+            return getRandomInt(arena.getSize()) + 1;
     }
 }

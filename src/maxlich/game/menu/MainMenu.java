@@ -69,10 +69,6 @@ public class MainMenu { //меню игры
             return name;
         }
 
-        public void setName(String name) {
-            this.name = name;
-        }
-
         MainMenuItem(String name) {
             this.name = name;
         }

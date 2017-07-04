@@ -3,6 +3,8 @@ package maxlich.game.activeobjects.enemy;
 import maxlich.game.Arena;
 import maxlich.game.activeobjects.ActiveObject;
 
+import static maxlich.game.utils.Helper.getRandomInt;
+import static maxlich.game.utils.Helper.getRandomIntOf2;
 import static maxlich.game.utils.Helper.printMsg;
 
 /**
@@ -61,7 +63,7 @@ public class EnemyWithIqLevel2 extends Enemy {
             return ++location;
         if (location == arena.getSize())
             return --location;
-        int random = (int) (Math.random() * 2);
+        int random = getRandomIntOf2();
         lastHP = healthPoints.current;
         return makeAMove((random == 0) ? -1 : 1);
     }
@@ -110,7 +112,7 @@ public class EnemyWithIqLevel2 extends Enemy {
                     return (playerHasMoved) ? (arena.getSize() - 1) : arena.getSize();
                 } else {
                     if (!playerHasMoved) return lastPlayerLocation;
-                    int random = (int) (Math.random() * 2);
+                    int random = getRandomIntOf2();
                     return (random == 0) ? lastPlayerLocation - 1 : lastPlayerLocation + 1;
                 }
             } else if (numOfMisses == 1) {
@@ -120,7 +122,7 @@ public class EnemyWithIqLevel2 extends Enemy {
                     else
                         return lastPlayerLocation + 1;
                 } else {
-                    int random = (int) (Math.random() * 2);
+                    int random = getRandomIntOf2();
                     if (lastUnguessedLocationOfPLayer > lastPlayerLocation)
                         return (random == 0) ? lastPlayerLocation - 2 : lastPlayerLocation;
                     else
@@ -128,6 +130,6 @@ public class EnemyWithIqLevel2 extends Enemy {
                 }
             }
         }
-        return (int) (Math.random() * arena.getSize()) + 1;
+        return getRandomInt(arena.getSize()) + 1;
     }
 }

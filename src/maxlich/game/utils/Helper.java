@@ -6,11 +6,14 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Random;
 
 /**
  * Created by Максим on 22.06.2017.
  */
 public class Helper {
+    private static Random random = new Random();
+
     //путь до файла с правилами игры
     private static final String pathToRulesFile = "." + File.separator  + "src" +
             File.separator + "maxlich" + File.separator + "game" + File.separator + "Rules";
@@ -39,5 +42,13 @@ public class Helper {
             System.out.print("-");
         }
         System.out.println();
+    }
+
+    public static int getRandomInt(int n) {
+        return random.nextInt(n);
+    }
+
+    public static int getRandomIntOf2() {
+        return random.nextInt(2);
     }
 }

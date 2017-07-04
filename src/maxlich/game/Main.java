@@ -82,8 +82,8 @@ public class Main {
                 for (int diffIndex = difficultyGame.ordinal(); diffIndex < DifficultyGame.values().length; diffIndex++) {
                     if (goToMainMenu) break;
                     difficultyGame = DifficultyGame.values()[diffIndex];
-
-                    for (int iLevel = 1; iLevel <= 10; iLevel++) { //цикл уровня игры
+                    int iLevel = 1;
+                    while (iLevel <= 10) { //цикл уровня игры
                         printMsg("Сложность игры: " + difficultyGame.getName() + ", Уровень: " + iLevel);
 
                         score.clearAllIndicators();
@@ -205,8 +205,11 @@ public class Main {
                                 e.printStackTrace();
                             }
                         } // конец if на проверку, проиграл игрок или победил
+                        iLevel++;
                         printMsg("\n");
                     } //конец цикла уровня игры
+
+                    if (iLevel != 10) break;
 
                     printMsg("\nПоздравляем!!! Вы прошли игру на текущем уровне сложности!");
 
@@ -292,9 +295,6 @@ public class Main {
             return name;
         }
 
-        public void setName(String name) {
-            this.name = name;
-        }
     }
 
     public enum DifficultyGame {
@@ -312,8 +312,5 @@ public class Main {
             return name;
         }
 
-        public void setName(String name) {
-            this.name = name;
-        }
     }
 }

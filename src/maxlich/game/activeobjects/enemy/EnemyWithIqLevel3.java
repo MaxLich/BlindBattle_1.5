@@ -7,6 +7,8 @@ import maxlich.game.activeobjects.ActiveObject;
  * Created by Максим on 25.06.2017.
  */
 public class EnemyWithIqLevel3 extends Enemy {
+    private boolean[] locs;
+
     public EnemyWithIqLevel3(String name, int healthpoints, int minDamage, int maxDamage, Arena arena) {
         super(name, healthpoints, minDamage, maxDamage, arena);
     }
@@ -30,6 +32,15 @@ public class EnemyWithIqLevel3 extends Enemy {
 
     @Override
     public Action attackOrMove() {
+        //TODO:
+        //если противника атаковали, то:
+        //если у игрока хп меньше, либо равен минимальному урону противника,
+        //то по-любому атаковать его (игрока)
+
+        //если у игрока хп находится между минимальным и максимальным уроном противника,
+        //то надо атаковать, если только у противника много хп
+        //
+
         return null;
     }
 
