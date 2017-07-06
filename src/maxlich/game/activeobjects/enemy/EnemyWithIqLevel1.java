@@ -3,7 +3,7 @@ package maxlich.game.activeobjects.enemy;
 import maxlich.game.Arena;
 import maxlich.game.activeobjects.ActiveObject;
 
-import static maxlich.game.utils.Helper.getRandomInt;
+import static maxlich.game.utils.Helper.generateRandomInt;
 import static maxlich.game.utils.Helper.printMsg;
 
 /**
@@ -42,29 +42,23 @@ public class EnemyWithIqLevel1 extends Enemy {
         return randomMove();
     }
 
-    public int attack(ActiveObject player) {
-        int locPlayer = guessLocationOfPlayer();
-        printMsg("Противник думает, что Ваше местоположение: " + locPlayer + "\n");
-        boolean hittingThePlayer = player.checkLocation(locPlayer);
-        if (hittingThePlayer) { //если враг попал по игроку (угадал позицию игрока)
-            lastPlayerLocation = locPlayer;
-            numOfMisses = 0;
+    @Override
+    protected void missOnPlayer(int locPlayer) {
+        if (numOfMisses < 0)
+            numOfMisses = 1;
+        else
+            numOfMisses++; //увеличиваем количество промахов на 1
 
-            int curDamage = this.damage(player);
-            printMsg("Враг угадал Ваше местоположение, атаковал Вас и нанёс Вам урон " + curDamage  + " ед.");
-            printMsg("Ваши очки здоровья после атаки врага: ");
-            player.printHealth();
-            return curDamage;
-        } else { //если враг проманулся
-            printMsg("Враг промахнулся!");
-            if (numOfMisses < 0)
-                numOfMisses = 1;
-            else
-                numOfMisses++; //увеличиваем количество промахов на 1
+        if (numOfMisses >= 2) lastPlayerLocation = -1;
+    }
 
-            if (numOfMisses >= 2) lastPlayerLocation = -1;
-            return 0;
-        }
+    @Override
+    protected int InflictDamageOnPlayer(ActiveObject player) {
+        int curDamage = this.damage(player);
+        printMsg("Враг угадал Ваше местоположение, атаковал Вас и нанёс Вам урон " + curDamage + " ед.");
+        printMsg("Ваши очки здоровья после атаки врага: ");
+        player.printHealth();
+        return curDamage;
     }
 
     @Override
@@ -72,6 +66,6 @@ public class EnemyWithIqLevel1 extends Enemy {
         if (lastPlayerLocation >= 1 && numOfMisses == 0)
             return lastPlayerLocation;
         else
-            return getRandomInt(arena.getSize()) + 1;
+            return generateRandomInt(arena.getSize()) + 1;
     }
 }

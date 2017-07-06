@@ -3,8 +3,8 @@ package maxlich.game.activeobjects.enemy;
 import maxlich.game.Arena;
 import maxlich.game.activeobjects.ActiveObject;
 
-import static maxlich.game.utils.Helper.getRandomInt;
-import static maxlich.game.utils.Helper.getRandomIntOf2;
+import static maxlich.game.utils.Helper.generateRandomInt;
+import static maxlich.game.utils.Helper.generatetRandomIntOf2;
 import static maxlich.game.utils.Helper.printMsg;
 
 /**
@@ -63,43 +63,37 @@ public class EnemyWithIqLevel2 extends Enemy {
             return ++location;
         if (location == arena.getSize())
             return --location;
-        int random = getRandomIntOf2();
+        int random = generatetRandomIntOf2();
         lastHP = healthPoints.current;
         return makeAMove((random == 0) ? -1 : 1);
     }
 
+
     @Override
-    public int attack(ActiveObject player) {
-        int locPlayer = guessLocationOfPlayer();
-        printMsg("Противник думает, что Ваше местоположение: " + locPlayer + "\n");
-        boolean hittingThePlayer = player.checkLocation(locPlayer);
-        if (hittingThePlayer) { //если враг попал по игроку (угадал позицию игрока)
-            lastPlayerLocation = locPlayer;
-            numOfMisses = 0;
+    protected void missOnPlayer(int locPlayer) {
+        if (numOfMisses < 0)
+            numOfMisses = 1;
+        else
+            numOfMisses++; //увеличиваем количество промахов на 1
 
-            int curDamage = this.damage(player);
-            printMsg("Враг угадал Ваше местоположение, атаковал Вас и нанёс Вам урон " + curDamage + " ед.");
-            printMsg("Ваши очки здоровья после атаки врага: ");
-            player.printHealth();
+        if (numOfMisses >= 2)
+            lastPlayerLocation = -1;
+        else
+            lastUnguessedLocationOfPLayer = locPlayer;
 
-            lastHP = healthPoints.current;
-            return curDamage;
-        } else { //если враг проманулся
+        lastHP = healthPoints.current;
+    }
 
-            printMsg("Враг промахнулся!");
-            if (numOfMisses < 0)
-                numOfMisses = 1;
-            else
-                numOfMisses++; //увеличиваем количество промахов на 1
+    @Override
+    protected int InflictDamageOnPlayer(ActiveObject player) {
+        int curDamage = this.damage(player);
+        printMsg("Враг угадал Ваше местоположение, атаковал Вас и нанёс Вам урон " + curDamage + " ед.");
+        printMsg("Ваши очки здоровья после атаки врага: ");
+        player.printHealth();
 
-            if (numOfMisses >= 2)
-                lastPlayerLocation = -1;
-            else
-                lastUnguessedLocationOfPLayer = locPlayer;
+        lastHP = healthPoints.current;
 
-            lastHP = healthPoints.current;
-            return 0;
-        }
+        return curDamage;
     }
 
     @Override
@@ -112,7 +106,7 @@ public class EnemyWithIqLevel2 extends Enemy {
                     return (playerHasMoved) ? (arena.getSize() - 1) : arena.getSize();
                 } else {
                     if (!playerHasMoved) return lastPlayerLocation;
-                    int random = getRandomIntOf2();
+                    int random = generatetRandomIntOf2();
                     return (random == 0) ? lastPlayerLocation - 1 : lastPlayerLocation + 1;
                 }
             } else if (numOfMisses == 1) {
@@ -122,7 +116,7 @@ public class EnemyWithIqLevel2 extends Enemy {
                     else
                         return lastPlayerLocation + 1;
                 } else {
-                    int random = getRandomIntOf2();
+                    int random = generatetRandomIntOf2();
                     if (lastUnguessedLocationOfPLayer > lastPlayerLocation)
                         return (random == 0) ? lastPlayerLocation - 2 : lastPlayerLocation;
                     else
@@ -130,6 +124,6 @@ public class EnemyWithIqLevel2 extends Enemy {
                 }
             }
         }
-        return getRandomInt(arena.getSize()) + 1;
+        return generateRandomInt(arena.getSize()) + 1;
     }
 }

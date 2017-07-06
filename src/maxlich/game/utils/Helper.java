@@ -44,11 +44,11 @@ public class Helper {
         System.out.println();
     }
 
-    public static int getRandomInt(int n) {
+    public static int generateRandomInt(int n) {
         return random.nextInt(n);
     }
 
-    public static int getRandomIntOf2() {
+    public static int generatetRandomIntOf2() {
         return random.nextInt(2);
     }
 }

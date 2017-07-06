@@ -21,7 +21,7 @@ public class Arena {
     }
 
     public int getRandomLocation() {
-        return Helper.getRandomInt(size) + 1;
+        return Helper.generateRandomInt(size) + 1;
     }
 
 }
