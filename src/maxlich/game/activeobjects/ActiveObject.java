@@ -110,12 +110,12 @@ public abstract class ActiveObject implements Movable, Attackable {
         return this.dmg.current;
     }
 
-    private void checkBorders(int minLocation, int maxLocation) {
+    protected void checkBorders(int minLocation, int maxLocation) { //проверить, чтобы объект не выходил за границы арены
         if (location < minLocation) location = minLocation;
         if (location > maxLocation) location = maxLocation;
     }
 
-    protected int makeAMove(int delta) {
+    protected int makeAMove(int delta) { //совершить движение (передвинуться на delta)
         this.location += delta;
         checkBorders(1,arena.getSize());
         return this.location;

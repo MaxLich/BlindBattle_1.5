@@ -31,19 +31,12 @@ public class EnemyWithIqLevel1 extends Enemy {
         return 1;
     }
 
+    //метод attackOrMove() просто наследуется, и не переопределяется (берётся таким, какой он есть у родителя)
+
+    //метод move() просто наследуется, и не переопределяется (берётся таким, какой он есть у родителя)
 
     @Override
-    public Action attackOrMove() {
-        return makeARandomChoiceOfAction();
-    }
-
-    @Override
-    public int move() {
-        return randomMove();
-    }
-
-    @Override
-    protected void missOnPlayer(int locPlayer) {
+    protected void missOnPlayer(int locPlayer) { //инициализация промаха по игроку
         if (numOfMisses < 0)
             numOfMisses = 1;
         else
@@ -53,7 +46,7 @@ public class EnemyWithIqLevel1 extends Enemy {
     }
 
     @Override
-    protected int InflictDamageOnPlayer(ActiveObject player) {
+    protected int InflictDamageOnPlayer(ActiveObject player) { //собственно нанесения урона по игроку
         int curDamage = this.damage(player);
         printMsg("Враг угадал Ваше местоположение, атаковал Вас и нанёс Вам урон " + curDamage + " ед.");
         printMsg("Ваши очки здоровья после атаки врага: ");
@@ -62,7 +55,7 @@ public class EnemyWithIqLevel1 extends Enemy {
     }
 
     @Override
-    int guessLocationOfPlayer() {
+    int guessLocationOfPlayer() { //угадывание позиции игрока
         if (lastPlayerLocation >= 1 && numOfMisses == 0)
             return lastPlayerLocation;
         else

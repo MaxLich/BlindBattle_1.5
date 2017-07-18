@@ -3,7 +3,7 @@ package maxlich.game.activeobjects.enemy;
 import maxlich.game.Arena;
 import maxlich.game.activeobjects.ActiveObject;
 
-import static maxlich.game.utils.Helper.generatetRandomIntOf2;
+import static maxlich.game.utils.Helper.generateRandomIntOf2;
 import static maxlich.game.utils.Helper.printMsg;
 
 /**
@@ -41,18 +41,19 @@ public abstract class Enemy extends ActiveObject {
         this.playerHasMoved = playerHasMoved;
     }
 
-    int randomMove() {
-        int random  = generatetRandomIntOf2();
+    @Override
+    public int move() { //выбор, куда двигаться
+        int random  = generateRandomIntOf2();
         return makeAMove((random == 0)? -1: 1);
     }
 
-    Action makeARandomChoiceOfAction() {
-        int choice = generatetRandomIntOf2();
+    public Action attackOrMove() { //совершить случайный выбор действия: двигаться или атаковать
+        int choice = generateRandomIntOf2();
         return Action.values()[choice];
     }
 
     @Override
-    public int attack(ActiveObject player) {
+    public int attack(ActiveObject player) { //попытка атаки игрока
         int locPlayer = guessLocationOfPlayer();
         printMsg("Противник думает, что Ваше местоположение: " + locPlayer + "\n");
         boolean hittingThePlayer = player.checkLocation(locPlayer);

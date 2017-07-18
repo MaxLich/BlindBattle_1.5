@@ -1,7 +1,6 @@
 package maxlich.game.utils;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -48,7 +47,14 @@ public class Helper {
         return random.nextInt(n);
     }
 
-    public static int generatetRandomIntOf2() {
+    public static int generateRandomIntOf2() {
         return random.nextInt(2);
     }
+
+    public static void main(String[] args) {
+        for (int i = 0; i < 10; i++) {
+            System.out.println(generateRandomIntOf2());
+        }
+    }
+
 }
